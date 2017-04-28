@@ -112,7 +112,7 @@ public class HttpUtils{
 
 
     private void post(String url, Map<String, Object> params, EngineCallBack callBack) {
-        mHttpEngine.get(mContext,url,params,callBack);
+        mHttpEngine.post(mContext,url,params,callBack);
     }
 
     /**
