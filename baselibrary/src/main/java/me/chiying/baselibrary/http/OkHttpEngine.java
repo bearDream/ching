@@ -28,10 +28,12 @@ import okhttp3.Response;
 public class OkHttpEngine implements IHttpEngine{
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
 
+    private static String cookie = "";
+
     @Override
     public void post(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
 
-        final String jointUrl = HttpUtils.jointParams(url,params);  //打印
+        final String jointUrl = url;  //post不需要拼接param
         Log.e("Post请求路径：",jointUrl);
 
         // 了解 Okhhtp
@@ -40,6 +42,7 @@ public class OkHttpEngine implements IHttpEngine{
                 .url(url)
                 .tag(context)
                 .post(requestBody)
+                .addHeader("cookie",cookie)
                 .build();
 
         mOkHttpClient.newCall(request).enqueue(
@@ -53,6 +56,17 @@ public class OkHttpEngine implements IHttpEngine{
                     public void onResponse(okhttp3.Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
                         String result = response.body().string();
+
+                        List<String> cookies = response.headers().values("Set-Cookie");
+                        if (cookies.size() > 0){
+                            String session = cookies.get(0);
+                            Log.d("info_cookies", "onResponse-size: " + cookies);
+
+                            String s = session.substring(0, session.indexOf(";"));
+                            Log.i("info_s", "session is  :" + s);
+                            cookie = s;
+                        }
+
                         Log.e("Post返回结果：",jointUrl);
                         callBack.onSuccess(result);
                     }
@@ -97,7 +111,7 @@ public class OkHttpEngine implements IHttpEngine{
                         e.printStackTrace();
                     }
                 } else {
-                    builder.addFormDataPart(key, value + "");
+//                    builder.addFormDataPart(key, value + "");
                 }
             }
         }

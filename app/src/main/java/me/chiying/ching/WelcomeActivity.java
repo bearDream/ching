@@ -4,6 +4,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
+
+import me.chiying.baselibrary.ioc.ViewById;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -13,6 +19,12 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        //设置图片显示动画效果
+        Animation animation = AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.fade_in_anim);
+        animation.setDuration(2000);
+        findViewById(R.id.welcome_image).startAnimation(animation);
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

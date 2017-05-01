@@ -30,4 +30,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':baselibrary')
     compile project(':framelibrary')
+
+    //loading动画  第三方AVLoading
+//    compile 'com.wang.avi:library:1.0.0'
+//    compile 'com.nineoldandroids:library:2.4.0'
 }

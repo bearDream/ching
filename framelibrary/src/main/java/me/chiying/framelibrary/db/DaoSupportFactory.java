@@ -22,13 +22,13 @@ public class DaoSupportFactory {
         //打开（如果不存在则创建）一个数据库
         File dbRoot = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator
-                +"nhdz"
+                +"ching"
                 + File.separator
                 + "database");
         if (!dbRoot.exists()){
             dbRoot.mkdirs();
         }
-        File dbFile = new File(dbRoot,"nhdz.db");
+        File dbFile = new File(dbRoot,"ching.db");
         mSQLiteDatabase = SQLiteDatabase.openOrCreateDatabase(dbFile,null);
         System.out.println(mSQLiteDatabase);
     }
