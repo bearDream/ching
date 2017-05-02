@@ -34,9 +34,8 @@ public class OkHttpEngine implements IHttpEngine {
     @Override
     public void post(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
 
-        final String jointUrl = HttpUtils.jointParams(url,params);  //打印
-        Log.e("Post请求路径：",jointUrl);
-
+        if (params.size()==0)
+            throw new IllegalArgumentException("post的body不能为空");
         // 了解 Okhhtp
         RequestBody requestBody = appendBody(params);
         Request request = new Request.Builder()
@@ -56,7 +55,7 @@ public class OkHttpEngine implements IHttpEngine {
                     public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
                         String result = response.body().string();
-                        Log.e("Post返回结果：",jointUrl);
+                        Log.e("Post返回结果：",result);
                         callBack.onSuccess(result);
                     }
                 }

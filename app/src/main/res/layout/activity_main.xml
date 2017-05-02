@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/home_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/home_rb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/main_rb"
+            android:drawablePadding="3dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_selector"
+            android:text="@string/home_rb"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/features_rb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/main_rb"
+            android:drawablePadding="3dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_selector"
+            android:text="@string/features_rb"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/dynamic_rb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/main_rb"
+            android:drawablePadding="3dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_selector"
+            android:text="@string/dynamic_rb"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/me_rb"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:drawableTop="@drawable/main_rb"
+            android:drawablePadding="3dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_selector"
+            android:text="@string/me_rb"
+            android:checked="false"/>
+
+    </RadioGroup>
+</LinearLayout>

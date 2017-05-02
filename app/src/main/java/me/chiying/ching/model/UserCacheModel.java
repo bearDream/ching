@@ -8,14 +8,14 @@ import java.security.PublicKey;
 
 public class UserCacheModel {
 
-    private String username;
+    private String mobile;
 
     private String token;
 
     public UserCacheModel(){}
 
-    public UserCacheModel(String username, String token) {
-        this.username = username;
+    public UserCacheModel(String mobile, String token) {
+        this.mobile = mobile;
         this.token = token;
     }
 

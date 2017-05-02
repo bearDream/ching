@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import me.chiying.framelibrary.R;
 
@@ -14,8 +15,8 @@ import me.chiying.framelibrary.R;
 
 public class LoadingDialog {
 
-    //创建loading动画弹层
-    public static Dialog createAnimationLoading(Context context, String tips) {
+    //创建loading动画弹层,无文字
+    public static Dialog createAnimationLoading(Context context) {
         Dialog dialog = new Dialog(context, R.style.dialog);
         dialog.setContentView(R.layout.loading_anim);
         dialog.setCanceledOnTouchOutside(false);
@@ -23,6 +24,21 @@ public class LoadingDialog {
         //loading如果需要动画，则在layout中加一个textview
 //        TextView tv = (TextView) dialog.findViewById(R.id.loading_text);
 //        tv.setText(tips);
+        animationView.setBackgroundResource(R.drawable.loading_anim);
+        AnimationDrawable animationDrawable = (AnimationDrawable) animationView.getBackground();
+        animationDrawable.start();
+        return dialog;
+    }
+
+    //创建loading动画弹层,有文字
+    public static Dialog createAnimationLoadingText(Context context, String tips) {
+        Dialog dialog = new Dialog(context, R.style.dialog);
+        dialog.setContentView(R.layout.loading_anim_text);
+        dialog.setCanceledOnTouchOutside(false);
+        ImageView animationView = (ImageView) dialog.findViewById(R.id.loading_anim);
+        //loading如果需要动画，则在layout中加一个textview
+        TextView tv = (TextView) dialog.findViewById(R.id.loading_text);
+        tv.setText(tips);
         animationView.setBackgroundResource(R.drawable.loading_anim);
         AnimationDrawable animationDrawable = (AnimationDrawable) animationView.getBackground();
         animationDrawable.start();
