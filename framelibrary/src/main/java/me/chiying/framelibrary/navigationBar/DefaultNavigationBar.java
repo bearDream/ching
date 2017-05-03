@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import me.chiying.baselibrary.navigationbar.AbsNavigationBar;
 import me.chiying.framelibrary.R;
@@ -34,6 +35,11 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
         setText(R.id.title, getParams().mTitle);
 
         setText(R.id.right_text, getParams().mRightText);
+
+        //
+        if (getParams().mLeftIcon == null){
+            findViewById(R.id.back).setVisibility(View.GONE);
+        }
 
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
 
@@ -86,6 +92,12 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
             return this;
         }
 
+        //设置左边的不需要返回键
+        public Builder setNoLeftButton(){
+            P.mLeftIcon = null;
+            return this;
+        }
+
         //设置右边的按钮点击事件
         public Builder setRightClickListener(View.OnClickListener listener){
             P.mRightClickListener = listener;
@@ -97,6 +109,9 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
 
             public String mTitle;
             public String mRightText;
+
+            public ImageView mLeftIcon;
+            public ImageView mRightIcon;
 
             public View.OnClickListener mRightClickListener;
             public View.OnClickListener mLeftClickListener = new View.OnClickListener() {

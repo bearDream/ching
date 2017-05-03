@@ -1,5 +1,6 @@
 package me.chiying.ching;
 
+import android.app.Dialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -14,6 +15,8 @@ import me.chiying.ching.fragment.DynamicFragment;
 import me.chiying.ching.fragment.FeaturesFragment;
 import me.chiying.ching.fragment.HomeFragment;
 import me.chiying.ching.fragment.MeFragment;
+import me.chiying.framelibrary.loadingDialog.LoadingDialog;
+import me.chiying.framelibrary.navigationBar.DefaultNavigationBar;
 
 /*
     应用的主界面
@@ -63,7 +66,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         //将ViewPager赋给mViewPager
         mViewPager = mHomeViewPager;
-
     }
 
     @Override

@@ -364,7 +364,6 @@ public class LoginActivity extends BaseActivity {
                 mLoadingDialog.cancel();
                 Gson gson = new Gson();
                 ResultModel resultJson = gson.fromJson(bundle.getString("0"), ResultModel.class);
-                System.out.println(resultJson.getCode());
                 //返回code为0说明登陆成功，-1则可能用户名出错
                 if (resultJson.getCode() == 0){
                     //正常登陆，将username和token写入sqllite

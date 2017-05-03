@@ -70,7 +70,6 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.AbsNav
             ViewGroup activityRoot = (ViewGroup) ((Activity)(mParams.mContext))
                     .getWindow().getDecorView();
             mParams.mParent = (ViewGroup) activityRoot.getChildAt(0);
-            Log.e("TAG",mParams.mParent+"");
         }
 
         // 处理Activity的源码，后面再去看
