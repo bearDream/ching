@@ -1,6 +1,7 @@
 package me.chiying.ching.fragment;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
         mHomeNavigationBar = new DefaultNavigationBar
                 .Builder(mContext, (ViewGroup) mView)
                 .setTitle("首页")
+                .setLeftIcon(R.drawable.btn_back)
                 .builder();
         return mView;
     }

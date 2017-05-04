@@ -2,9 +2,15 @@ package me.chiying.framelibrary.navigationBar;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import me.chiying.baselibrary.navigationbar.AbsNavigationBar;
 import me.chiying.framelibrary.R;
@@ -36,10 +42,26 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
 
         setText(R.id.right_text, getParams().mRightText);
 
-        //
-        if (getParams().mLeftIcon == null){
-            findViewById(R.id.back).setVisibility(View.GONE);
+        setText(R.id.back, getParams().mLeftText);
+
+
+        //为了兼容4.4的版本，需要判断当前的SDK版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            //设置左边的icon(如果设置了图片则显示，否则不予显示)
+            if (getParams().mLeftIcon != 0)
+                findViewById(R.id.back).setBackground(getParams().mContext.getResources().getDrawable(getParams().mLeftIcon, null));
+
+            if (getParams().mRightIcon != 0)
+                findViewById(R.id.right_text).setBackground(getParams().mContext.getResources().getDrawable(getParams().mRightIcon, null));
+
+        }else {
+            if (getParams().mLeftIcon != 0)
+                findViewById(R.id.back).setBackground(getParams().mContext.getResources().getDrawable(getParams().mLeftIcon));
+
+            if (getParams().mRightIcon != 0)
+                findViewById(R.id.back).setBackground(getParams().mContext.getResources().getDrawable(getParams().mRightIcon));
         }
+
 
         setOnClickListener(R.id.right_text, getParams().mRightClickListener);
 
@@ -48,7 +70,7 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
     }
 
 
-    public static class Builder extends AbsNavigationBar.Builder{
+    public static class Builder extends AbsNavigationBar.Builder {
 
         DefaultNavigationParams P;
 
@@ -57,7 +79,7 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
             P = new DefaultNavigationParams(context, parent);
         }
 
-        public Builder(Context context){
+        public Builder(Context context) {
             super(context, null);
             P = new DefaultNavigationParams(context, null);
         }
@@ -69,55 +91,67 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
         }
 
         //设置title标题
-        public Builder setTitle(String title){
+        public Builder setTitle(String title) {
             P.mTitle = title;
             return this;
         }
 
         //设置右边的文字
-        public Builder setRightText(String text){
+        public Builder setRightText(String text) {
             P.mRightText = text;
             return this;
         }
 
         //设置右边的图标
-        public Builder setRightIcon(String title){
-            P.mTitle = title;
+        public Builder setRightIcon(int imageView) {
+            P.mRightIcon = imageView;
             return this;
         }
 
         //设置左边的按钮点击事件
-        public Builder setLeftClickListener(View.OnClickListener listener){
+        public Builder setLeftClickListener(View.OnClickListener listener) {
             P.mLeftClickListener = listener;
             return this;
         }
 
-        //设置左边的不需要返回键
-        public Builder setNoLeftButton(){
-            P.mLeftIcon = null;
+        public Builder setLeftText(String text){
+            P.mLeftText = text;
+            return this;
+        }
+
+        public Builder setLeftIcon(int imageView){
+            P.mLeftIcon = imageView;
+            return this;
+        }
+
+        //设置左边没有任何东西
+        public Builder setNoLeftButton() {
+            P.mLeftIcon = 0;
             return this;
         }
 
         //设置右边的按钮点击事件
-        public Builder setRightClickListener(View.OnClickListener listener){
+        public Builder setRightClickListener(View.OnClickListener listener) {
             P.mRightClickListener = listener;
             return this;
         }
 
         //设置所有效果
-        public static class DefaultNavigationParams extends AbsNavigationBar.Builder.AbsNavigationParams{
+        public static class DefaultNavigationParams extends AbsNavigationBar.Builder.AbsNavigationParams {
 
             public String mTitle;
-            public String mRightText;
 
-            public ImageView mLeftIcon;
-            public ImageView mRightIcon;
+            public int mLeftIcon;
+            public String mLeftText;
+
+            public int mRightIcon;
+            public String mRightText;
 
             public View.OnClickListener mRightClickListener;
             public View.OnClickListener mLeftClickListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    ((Activity)(mContext)).finish();
+                    ((Activity) (mContext)).finish();
                 }
             };
             //把设置的效果放进来

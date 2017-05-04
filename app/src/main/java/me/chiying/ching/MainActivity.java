@@ -1,8 +1,10 @@
 package me.chiying.ching;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
@@ -59,11 +61,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         //设置滑动fragment底部tab变化
         mViewPager.addOnPageChangeListener(this);
+
+        Log.e("TAG", "是否登录:"+getSharedPreferences("info", MODE_PRIVATE).getBoolean("is_login",false));
+        Log.e("TAG", "登录信息:"+getSharedPreferences("info", MODE_PRIVATE).getString("user_info",""));
     }
 
     @Override
     protected void initView() {
-
         //将ViewPager赋给mViewPager
         mViewPager = mHomeViewPager;
     }
