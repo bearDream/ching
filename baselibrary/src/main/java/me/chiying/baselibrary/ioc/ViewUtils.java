@@ -4,11 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
+
+import me.chiying.baselibrary.R;
+import me.chiying.baselibrary.http.EngineCallBack;
+import me.chiying.baselibrary.http.HttpUtils;
 
 /**
  * Email 450848477@qq.com

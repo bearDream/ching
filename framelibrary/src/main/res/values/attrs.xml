@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <attr name="borderRadius" format="dimension" />
+    <attr name="type">
+        <enum name="circle" value="0" />
+        <enum name="round" value="1" />
+    </attr>
+    <!-- 实现圆形图片的自定义属性 -->
+    <declare-styleable name="RoundImageView">
+        <attr name="borderRadius" />
+        <attr name="type" />
+    </declare-styleable>
+
+    <!-- 图片按照自定义比例缩放 -->
     <declare-styleable name="ProportionImageView">
         <attr name="widthProportion" format="float"/>
         <attr name="heightProportion" format="float"/>

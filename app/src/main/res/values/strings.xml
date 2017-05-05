@@ -16,5 +16,5 @@
     <string name="me_rb">我</string>
 
     <!-- 个人中心 -->
-    <string name="me_logout_text">未登录</string>
+    <string name="me_logout_text">登录/注册</string>
 </resources>

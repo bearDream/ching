@@ -148,7 +148,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/register_username"
                 android:hint="@string/login_username_hint" />
-            <Button
+            <me.chiying.framelibrary.customview.TimeButton
+                android:id="@+id/capcha_button"
                 android:background="@color/color_524944"
                 android:text="@string/register_captcha_Button"
                 android:layout_width="wrap_content"

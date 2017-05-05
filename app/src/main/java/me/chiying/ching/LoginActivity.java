@@ -46,6 +46,8 @@ import me.chiying.baselibrary.ioc.OnClick;
 import me.chiying.baselibrary.ioc.ViewById;
 import me.chiying.ching.model.ResultModel;
 import me.chiying.ching.model.UserCacheModel;
+import me.chiying.ching.model.UserInfo;
+import me.chiying.framelibrary.customview.TimeButton;
 import me.chiying.framelibrary.db.DaoSupport;
 import me.chiying.framelibrary.db.DaoSupportFactory;
 import me.chiying.framelibrary.db.IDaoSupport;
@@ -66,7 +68,7 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
 
     //处理登录信息的handler
     private loginHandler mLoginHandler;
-    private isLoginHandler mIsLoginHandler;
+//    private isLoginHandler mIsLoginHandler;
 
     //处理注册信息的handler
     private registerHandler mRegisterHandler;
@@ -107,6 +109,9 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
     @ViewById(R.id.show_hide_pw_check)
     private CheckBox mPasswordCheckBox;
 
+    @ViewById(R.id.capcha_button)
+    private TimeButton mCapchaButton;
+
 
     private AnimationDrawable mAnimationDrawable;
     @ViewById(R.id.login_forgot)
@@ -117,7 +122,7 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
     protected void initData() {
         //new一个handler接收信息
         mLoginHandler = new loginHandler();
-        mIsLoginHandler = new isLoginHandler();
+//        mIsLoginHandler = new isLoginHandler();
         mRegisterHandler = new registerHandler();
 
         PackageManager mPackageManager = this.getPackageManager();
@@ -127,7 +132,7 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        isLogin();//判断是否登录
+//        isLogin();//判断是否登录
     }
 
     @Override
@@ -247,48 +252,48 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     //判断是否登录
-    private void isLogin() {
-        String url = this.getString(R.string.url);
-        //发送请求打开加载层
-        mLoadingTextDialog.show();
-        //发送请求给登录请求   0:响应成功   -1:网络错误
-        HttpUtils.with(this)
-                .post()
-                .addParam("is_login", "true")
-                .url(url + "/isLogin")
-                .execute(new EngineCallBack() {
-                    @Override
-                    public void onPreExecute(Context context, Map<String, Object> params) {
-//                        mLoading.setVisibility(View.VISIBLE);
-                        Log.e("网络请求之前：", "预处理");
-                    }
-
-                    @Override
-                    public void onError(Exception e) {
-                        Log.e("网络出错：", e + "");
-                        //new一个message对象
-                        Message msg = new Message();
-                        //new一个bundle对象用以存放数据
-                        Bundle bundle = new Bundle();
-                        bundle.putString("-1", "网络出错");
-                        //将数据存放到Bundle中
-                        msg.setData(bundle);
-                        //发送数据给Handler
-                        LoginActivity.this.mIsLoginHandler.sendMessage(msg);
-                    }
-
-                    @Override
-                    public void onSuccess(String result) {
-                        Log.d("success: ->", result);
-                        Message msg = new Message();
-                        //new一个bundle对象用以存放数据
-                        Bundle bundle = new Bundle();
-                        bundle.putString("0", result);
-                        msg.setData(bundle);
-                        LoginActivity.this.mIsLoginHandler.sendMessage(msg);
-                    }
-                });
-    }
+//    private void isLogin() {
+//        String url = this.getString(R.string.url);
+//        //发送请求打开加载层
+//        mLoadingTextDialog.show();
+//        //发送请求给登录请求   0:响应成功   -1:网络错误
+//        HttpUtils.with(this)
+//                .post()
+//                .addParam("is_login", "true")
+//                .url(url + "/isLogin")
+//                .execute(new EngineCallBack() {
+//                    @Override
+//                    public void onPreExecute(Context context, Map<String, Object> params) {
+////                        mLoading.setVisibility(View.VISIBLE);
+//                        Log.e("网络请求之前：", "预处理");
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        Log.e("网络出错：", e + "");
+//                        //new一个message对象
+//                        Message msg = new Message();
+//                        //new一个bundle对象用以存放数据
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("-1", "网络出错");
+//                        //将数据存放到Bundle中
+//                        msg.setData(bundle);
+//                        //发送数据给Handler
+//                        LoginActivity.this.mIsLoginHandler.sendMessage(msg);
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(String result) {
+//                        Log.d("success: ->", result);
+//                        Message msg = new Message();
+//                        //new一个bundle对象用以存放数据
+//                        Bundle bundle = new Bundle();
+//                        bundle.putString("0", result);
+//                        msg.setData(bundle);
+//                        LoginActivity.this.mIsLoginHandler.sendMessage(msg);
+//                    }
+//                });
+//    }
 
     //发送注册请求
     private void register(String mobile, String password, String model) {
@@ -395,7 +400,10 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
                     SharedPreferences.Editor editor = getSharedPreferences("info", MODE_PRIVATE).edit();
                     editor.putBoolean("is_login",true);
 
-                    System.out.println(resultJson.getData());
+
+                    String userInfo = resultJson.getData();
+                    UserInfo user = gson.fromJson(userInfo, UserInfo.class);
+                    System.out.println(user.toString());
                     //2、保存用户信息
                     editor.putString("user_info", resultJson.getData());
                     editor.commit();
@@ -428,47 +436,47 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
     }
 
     //handler的内部类
-    class isLoginHandler extends Handler {
-
-        public isLoginHandler() {
-        }
-
-        public isLoginHandler(Looper looper) {
-            super(looper);
-        }
-
-        @Override
-        public void handleMessage(Message msg) {
-            Log.d("Log", "Handler --> " + msg);
-            Log.d("Log", "msg --> " + msg.getData());
-            super.handleMessage(msg);
-            Bundle bundle = msg.getData();
-            String mobile = mLoginUsername.getText().toString().trim();
-
-            if (bundle.getString("0") != null) {
-                //已登录
-                mLoadingTextDialog.cancel();
-                Gson gson = new Gson();
-                ResultModel resultJson = gson.fromJson(bundle.getString("0"), ResultModel.class);
-                System.out.println(resultJson.getCode());
-                //返回code为0说明登陆成功，-1则可能用户名出错
-                if (resultJson.getCode() == 0) {
-                    //正常登陆，将username和token写入sqllite
-                    Toast.makeText(LoginActivity.this, "登录信息没有过期", Toast.LENGTH_SHORT).show();
-                } else {
-                    SharedPreferences.Editor editor = getSharedPreferences("info", MODE_PRIVATE).edit();
-                    editor.remove("is_login");
-                    editor.remove("user_info");
-                    editor.commit();
-                    Toast.makeText(LoginActivity.this, "登录信息已过期，请重新登录", Toast.LENGTH_LONG).show();
-                }
-            }
-            if (bundle.getString("-1") != null) {
-                mLoadingTextDialog.cancel();
-                Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+//    class isLoginHandler extends Handler {
+//
+//        public isLoginHandler() {
+//        }
+//
+//        public isLoginHandler(Looper looper) {
+//            super(looper);
+//        }
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            Log.d("Log", "Handler --> " + msg);
+//            Log.d("Log", "msg --> " + msg.getData());
+//            super.handleMessage(msg);
+//            Bundle bundle = msg.getData();
+//            String mobile = mLoginUsername.getText().toString().trim();
+//
+//            if (bundle.getString("0") != null) {
+//                //已登录
+//                mLoadingTextDialog.cancel();
+//                Gson gson = new Gson();
+//                ResultModel resultJson = gson.fromJson(bundle.getString("0"), ResultModel.class);
+//                System.out.println(resultJson.getCode());
+//                //返回code为0说明登陆成功，-1则可能用户名出错
+//                if (resultJson.getCode() == 0) {
+//                    //正常登陆，将username和token写入sqllite
+//                    Toast.makeText(LoginActivity.this, "登录信息没有过期", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    SharedPreferences.Editor editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+//                    editor.remove("is_login");
+//                    editor.remove("user_info");
+//                    editor.commit();
+//                    Toast.makeText(LoginActivity.this, "登录信息已过期，请重新登录", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//            if (bundle.getString("-1") != null) {
+//                mLoadingTextDialog.cancel();
+//                Toast.makeText(LoginActivity.this, "网络出错", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
 
     class registerHandler extends Handler {
 

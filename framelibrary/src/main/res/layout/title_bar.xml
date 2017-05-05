@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/title_bar_style">
+    style="@style/title_bar_style"
+    android:clipToPadding="false"
+    android:fitsSystemWindows="true">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/back"
+        android:gravity="bottom"
         style="@style/back_view" />
 
     <TextView
@@ -19,11 +22,13 @@
         android:layout_marginRight="75.0dip"
         android:ellipsize="end"
         android:visibility="gone"
+        android:gravity="bottom"
         />
 
     <TextView
         android:id="@+id/right_text"
         android:visibility="gone"
         style="@style/title_bar_button"
+        android:gravity="bottom"
         android:layout_alignParentRight="true" />
 </RelativeLayout>

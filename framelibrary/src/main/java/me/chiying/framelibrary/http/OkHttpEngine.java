@@ -29,7 +29,10 @@ import okhttp3.Response;
  * Description: OkHttp默认的引擎
  */
 public class OkHttpEngine implements IHttpEngine {
+
     private static OkHttpClient mOkHttpClient = new OkHttpClient();
+
+    private static String cookie = "";
 
     @Override
     public void post(Context context,String url, Map<String, Object> params, final EngineCallBack callBack) {
@@ -42,6 +45,7 @@ public class OkHttpEngine implements IHttpEngine {
                 .url(url)
                 .tag(context)
                 .post(requestBody)
+                .addHeader("cookie",cookie)
                 .build();
 
         mOkHttpClient.newCall(request).enqueue(
@@ -55,6 +59,17 @@ public class OkHttpEngine implements IHttpEngine {
                     public void onResponse(Call call, Response response) throws IOException {
                         // 这个 两个回掉方法都不是在主线程中
                         String result = response.body().string();
+
+                        List<String> cookies = response.headers().values("Set-Cookie");
+                        if (cookies.size() > 0){
+                            String session = cookies.get(0);
+                            Log.d("info_cookies", "onResponse-size: " + cookies);
+
+                            String s = session.substring(0, session.indexOf(";"));
+                            Log.i("info_s", "session is  :" + s);
+                            cookie = s;
+                        }
+
                         Log.e("Post返回结果：",result);
                         callBack.onSuccess(result);
                     }
