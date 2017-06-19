@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -159,6 +160,12 @@ public class LoginActivity extends BaseActivity implements CompoundButton.OnChec
     @Override
     protected void setContentView() {
         setContentView(R.layout.activity_login);
+    }
+
+
+    @OnClick(R.id.capcha_button)
+    private void capchaClick(){
+        mCapchaButton.laterOnStatus(R.color.gray);
     }
 
     /*

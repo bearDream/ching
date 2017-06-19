@@ -13,15 +13,16 @@
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="130dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:padding="10dp"
+            android:padding="4dp"
             android:background="@drawable/login_username"
             android:orientation="horizontal">
 
@@ -30,8 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="center"
-                android:scaleX="0.7"
-                android:scaleY="0.7"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:background="@drawable/login_user" />
 
             <EditText
@@ -39,7 +40,7 @@
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:textSize="12dp"
                 android:textColor="@color/white"
                 android:id="@+id/login_username"
@@ -49,7 +50,7 @@
             android:layout_margin="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="4dp"
             android:background="@drawable/login_edittext"
             android:orientation="horizontal">
 
@@ -58,8 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="center"
-                android:scaleX="0.7"
-                android:scaleY="0.7"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
                 android:background="@drawable/login_password" />
 
             <EditText
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:layout_gravity="center"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:textSize="12dp"
                 android:textColor="@color/white"
                 android:id="@+id/login_password"
@@ -78,6 +79,7 @@
             <CheckBox
                 android:id="@+id/show_hide_pw_check"
                 android:button="@drawable/show_hide_password_selector"
+                android:padding="3dp"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -127,7 +129,7 @@
         android:id="@+id/register_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <LinearLayout
@@ -135,46 +137,86 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="150dp"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/login_user" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:padding="4dp"
+            android:background="@drawable/login_username"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <EditText
-                android:layout_width="230dp"
+                android:gravity="left"
+                android:background="@null"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="14dp"
+                android:textColor="@color/white"
                 android:id="@+id/register_username"
                 android:hint="@string/login_username_hint" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:padding="4dp"
+            android:background="@drawable/login_username"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:background="@null"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
+                android:id="@+id/register_captcha"
+                android:hint="@string/register_captcha_Text" />
+
             <me.chiying.framelibrary.customview.TimeButton
                 android:id="@+id/capcha_button"
-                android:background="@color/color_524944"
+                android:background="@drawable/circle_button"
                 android:text="@string/register_captcha_Button"
+                android:padding="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+
+
         <LinearLayout
-            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_gravity="center_vertical"
-            android:gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:padding="4dp"
+            android:background="@drawable/login_username"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/login_password" />
 
             <EditText
-                android:layout_width="230dp"
+                android:background="@null"
+                android:layout_width="210dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/login_edittext"
+                android:padding="5dp"
+                android:textSize="14dp"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/white"
                 android:id="@+id/register_password"
                 android:hint="@string/login_username_hint" />
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -195,6 +237,8 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:layout_gravity="center"
+            android:textSize="16dp"
+            android:textColor="@color/white"
             android:text="@string/register_login_Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
